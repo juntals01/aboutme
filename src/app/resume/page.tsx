@@ -161,7 +161,50 @@ const AboutPage = async () => {
 
             {/* Timeline */}
             <ul className='relative space-y-4 pl-10 md:pl-12 lg:pl-0'>
-              {/* Event */}
+              {/* Freelance Event */}
+              <li className='relative lg:ml-auto lg:w-1/2 lg:pl-6'>
+                <div className='absolute bottom-0 left-0 top-0 mt-5 flex w-10 -translate-x-full justify-center md:w-12 lg:-translate-x-6'>
+                  <div className='size-3 rounded-full bg-blue-500 ring ring-blue-100 ring-opacity-100 ring-offset-2 dark:bg-blue-300 dark:ring-blue-900 dark:ring-offset-gray-900' />
+                </div>
+                <div className='rounded-xl bg-gray-800 p-4 hover:ring hover:ring-gray-100 hover:ring-offset-2 dark:bg-gray-800 dark:ring-offset-gray-900 dark:hover:ring-gray-700'>
+                  <h4 className='mb-2 font-semibold'>Freelance</h4>
+                  <p className='text-sm'>
+                    Developed a mix of WordPress, mobile, and custom web
+                    projects for clients in various industries.
+                  </p>
+                  <ul className='text-sm leading-relaxed list-disc ml-6 mt-4'>
+                    <li>
+                      <a
+                        href='https://casinofiles.com/'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        casinofiles.com
+                      </a>{' '}
+                      – Casino portal (WordPress)
+                    </li>
+                    <li>Realty Live – Mobile property app</li>
+                    <li>
+                      <a
+                        href='https://studytimecalculator.com/'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        studytimecalculator.com
+                      </a>{' '}
+                      – Educational tool with React + hosting setup
+                    </li>
+                    <li>
+                      Party Bus – Elementor-based WordPress site for events
+                    </li>
+                  </ul>
+                </div>
+                <div className='px-4 py-2 lg:absolute lg:bottom-0 lg:left-0 lg:top-0 lg:mt-4 lg:flex lg:w-80 lg:-translate-x-full lg:flex-col lg:py-0 lg:pl-0 lg:pr-6 lg:text-right'>
+                  <p className='text-sm font-medium text-gray-500'>Ongoing</p>
+                </div>
+              </li>
+
+              {/* Arcanys Event */}
               <li className='relative lg:mr-auto lg:w-1/2 lg:pr-6'>
                 <div className='absolute bottom-0 left-0 top-0 mt-5 flex w-10 -translate-x-full justify-center md:w-12 lg:left-auto lg:right-0 lg:translate-x-6'>
                   <div className='size-3 rounded-full bg-blue-500 ring ring-blue-100 ring-opacity-100 ring-offset-2 dark:bg-blue-300 dark:ring-blue-900 dark:ring-offset-gray-900' />
@@ -169,44 +212,36 @@ const AboutPage = async () => {
                 <div className='rounded-xl bg-gray-800 p-4 hover:ring hover:ring-gray-100 hover:ring-offset-2 dark:bg-gray-800 dark:ring-offset-gray-900 dark:hover:ring-gray-700'>
                   <h4 className='mb-2 font-semibold'>Arcanys</h4>
                   <p className='text-sm'>
-                    I worked on a game site with features like <b>Steam</b>.
+                    I worked on a game web app with features similar to{' '}
+                    <b>Steam</b>.
                   </p>
                   <ul className='text-sm leading-relaxed list-disc ml-6 mt-4'>
-                    <li>NestJs - Backend</li>
-                    <li>NextJs - Frontend</li>
-                    <li>Postgres - Database</li>
+                    Backend:
+                    <li>NestJS for APIs and PostgreSQL as the database</li>
                     <li>
-                      Performed full-stack web development on a game listing
-                      website like Steam.
+                      Implemented CRUD operations for ratings and comments
                     </li>
+                    <li>
+                      Server-Sent Events (SSE) for notifications and real-time
+                      chat
+                    </li>
+                    <li>User registration and role-based access control</li>
+                    <li>SEO optimizations using Server Side Rendering (SSR)</li>
                   </ul>
                   <ul className='text-sm leading-relaxed list-disc ml-6 mt-4'>
-                    Backend
-                    <li>NestJS as backend and Postgres.</li>
-                    <li>
-                      Created CRUD operation for rating users and comments
-                    </li>
-                    <li>Added Server-Sent Events for notification</li>
-                    <li>User Registration</li>
-                    <li>Server Side Rendering for SEO on public pages</li>
-                    FrontEnd
-                    <li>NextJS as Frontend</li>
-                    <li>Uses NextAuth for user authentication</li>
-                    <li>
-                      Uses EventSource for catching Server-Sent Event
-                      notifications
-                    </li>
-                    <li>Uses Shadcn Ui and Tailwind CSS</li>
+                    Frontend:
+                    <li>Next.js (App Router) with TailwindCSS and Shadcn UI</li>
+                    <li>Authentication with NextAuth</li>
+                    <li>Used EventSource for SSE notifications and chats</li>
                     <li>Form validation using Zod</li>
                   </ul>
                 </div>
                 <div className='px-4 py-2 lg:absolute lg:bottom-0 lg:right-0 lg:top-0 lg:mt-4 lg:flex lg:w-80 lg:translate-x-full lg:flex-col lg:py-0 lg:pl-6 lg:pr-0'>
                   <p className='text-sm font-medium text-gray-500'>
-                    June 2023 – Current
+                    April 2023 – June 2024
                   </p>
                 </div>
               </li>
-              {/* END Event */}
 
               {/* Event */}
               <li className='relative lg:ml-auto lg:w-1/2 lg:pl-6'>
