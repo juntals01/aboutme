@@ -14,18 +14,10 @@ const PortfolioPage = () => {
   const boxes = [
     { src: '/portfolio/img-1.jpg' },
     { src: '/portfolio/img-2.jpg' },
-    { src: '/portfolio/img-3.jpg' },
+    { src: '/portfolio/img-3.png' },
     // second row
-    { src: '/portfolio/img-4.jpg' },
-    { src: '/portfolio/img-5.jpg' },
-    { src: '/portfolio/img-6.jpg' },
-    // third row
-    { src: '/portfolio/img-7.jpg' },
-    { src: '/portfolio/img-8.jpg' },
-    { src: '/portfolio/img-9.jpg' },
-    // forth
-    { src: '/portfolio/img-10.jpg' },
-    { src: '/portfolio/img-11.jpg' },
+    { src: '/portfolio/img-4.png' },
+    { src: '/portfolio/img-5.png' },
   ];
 
   return (

@@ -10,7 +10,7 @@ import { IoPersonOutline } from 'react-icons/io5';
 const AboutPage = () => {
   const { theme } = useAppContext();
   return (
-    <section className='mt-16'>
+    <section className='mt-16 min-h-screen flex flex-col justify-start'>
       <div className='container xl:max-w-5xl mx-auto'>
         <PageHeader>
           <h1>Contact</h1>

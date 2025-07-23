@@ -18,7 +18,8 @@ const AboutPage = async () => {
           <div className='flex-row md:flex space-x-0 md:space-x-4'>
             <div className='w-full md:w-1/2 space-y-4'>
               <div className=''>
-                <h4>React/Typescript - NextJs</h4>
+                <h4>React/TypeScript – Next.js / NestJS</h4>
+
                 <div className='flex h-4 w-full items-center overflow-hidden rounded-full bg-blue-100 dark:bg-blue-950'>
                   <div
                     role='progressbar'

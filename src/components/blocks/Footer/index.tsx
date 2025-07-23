@@ -39,7 +39,7 @@ const Footer = () => {
           </li>
         </ul>
       </div>
-      <p>{new Date().getFullYear()} ©CustomTheme.</p>
+      <p>{new Date().getFullYear()} ©NorbertoQLibagoJr.</p>
       <p>All Right Reserved.</p>
     </div>
   );

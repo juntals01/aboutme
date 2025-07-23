@@ -24,7 +24,13 @@ const Home = () => {
             >
               <Typewriter
                 options={{
-                  strings: ['Laravel', 'NextJS', 'WordPress', "DevOp's"],
+                  strings: [
+                    'NextJs',
+                    'NestJs',
+                    'Laravel',
+                    'WordPress',
+                    "DevOp's",
+                  ],
                   autoStart: true,
                   loop: true,
                 }}

@@ -9,6 +9,22 @@ import { MdImportantDevices } from 'react-icons/md';
 const AboutPage = () => {
   const { theme } = useAppContext();
 
+  const birthDate = new Date('1993-02-24');
+
+  const calculateAge = () => {
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    const dayDiff = today.getDate() - birthDate.getDate();
+
+    // Adjust if birthday hasn't occurred yet this year
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+      age--;
+    }
+
+    return age;
+  };
+
   return (
     <section className='mt-16 mb-16'>
       <div className='container xl:max-w-5xl mx-auto'>
@@ -22,16 +38,18 @@ const AboutPage = () => {
           <h2 className='font-semibold text-xl'>Full Stack Web Developer</h2>
           <p>
             I&apos;m Norberto Q. Libago Jr, a seasoned web developer with over 8
-            years of experience. Specializing in WordPress, ReactJS, Laravel,
-            and AWS. I&apos;m passionate about crafting innovative digital
-            solutions that elevate user experiences and drive business success.
+            years of experience. Specializing in NextJs, NestJs, ReactJS,
+            Laravel, Wordpress and AWS. I&apos;m passionate about crafting
+            innovative digital solutions that elevate user experiences and drive
+            business success.
           </p>
           <p>
             {' '}
             I&apos;m an experienced Full-Stack Web Developer with 8+ Years. 🚀
-            3+ Years in NextJS, 🚀 5+ Years in Laravel, MySQL, 🚀 3+ Years
-            WordPress, and 🚀 4+ Years Docker. I have a thorough experience in
-            application development and I am an aspiring lawyer!
+            5+ Years in NextJS, 5+ Years in NestJs, 🚀 5+ Years in Laravel,
+            MySQL, 🚀 3+ Years WordPress, and 🚀 4+ Years Docker. I have a
+            thorough experience in application development and I am an aspiring
+            lawyer!
           </p>
         </div>
         <div className='w-full md:w-1/4 md:pl-2 pt-8 md:pt-0'>
@@ -51,7 +69,7 @@ const AboutPage = () => {
               >
                 Age :
               </b>{' '}
-              <span>31 Years</span>
+              <span>{calculateAge()} Years</span>
             </li>
             <li className='space-x-2'>
               <b
@@ -95,7 +113,7 @@ const AboutPage = () => {
             </li>
           </ul>
           <a
-            href='/resume.docx'
+            href='/resume-latest.docx'
             className={`inline-block uppercase font-semibold mt-4 ${theme.color.border} ${theme.color.text} border-2 px-4 py-2`}
           >
             Download Resume
@@ -120,7 +138,7 @@ const AboutPage = () => {
 
               <h5 className='text-xl font-bold mb-2'>Backend</h5>
               <p className='text-sm'>
-                I mainly use <b>Laravel</b> on Backend. I am using php for long
+                I mainly use <b>NestJs</b> on Backend. I am using php for long
                 time now.
               </p>
             </div>
