@@ -1,9 +1,13 @@
-# Node modules
+# Dependencies
 node_modules/
 
 # Build output
 .next/
 out/
+dist/
+
+# Turbo
+.turbo/
 
 # Logs
 npm-debug.log*
@@ -11,12 +15,12 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Dependency directories
+# Lock files
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
 
-# Runtime data
+# Runtime
 *.pid
 *.seed
 *.pid.lock
@@ -32,25 +36,15 @@ coverage/
 .env.test.local
 .env.production.local
 
-# Next.js build artifacts
-.next/
-.next-static/
-.next-turbo/
-
-# VS Code settings
+# IDE
 .vscode/
+.idea/
 
-# Mac system files
+# OS
 .DS_Store
 
-# Optional: If using TurboRepo
-turbo/
-
-# Optional: If using Tailwind CSS JIT mode
-.tailwind-cache/
-
-# Optional: TypeScript
+# TypeScript
 *.tsbuildinfo
 
-# Optional: Ignore custom outputs
+# NestJS
 dist/

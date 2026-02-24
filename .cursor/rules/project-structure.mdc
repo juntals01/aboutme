@@ -1,0 +1,41 @@
+---
+description: Turborepo monorepo project structure and conventions
+alwaysApply: true
+---
+
+# Project Structure
+
+This is a Turborepo monorepo with the following layout:
+
+```
+apps/
+  web/    → Next.js 14 frontend (port 3000)
+  api/    → NestJS backend (port 4000)
+packages/
+  shared/ → Shared types, constants, utilities
+```
+
+## Key Conventions
+
+- **Root `.env`** holds all environment variables — apps read from `../../.env`
+- **Docker Compose** runs Postgres, Redis, MinIO with `aboutme-` prefix
+- Run `npm run dev` at root to start both apps via Turbo
+- Run `npm run reset:all` at root to drop DB, run migrations, then seeders
+
+## Package References
+
+- Shared package is referenced as `"shared": "*"` in workspace dependencies
+- Import shared code via `import { ... } from 'shared'`
+
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start all apps |
+| `npm run dev:web` | Start frontend only |
+| `npm run dev:api` | Start backend only |
+| `npm run build` | Build all apps |
+| `npm run reset:all` | Drop DB + migrations + seeders |
+| `npm run migration:generate` | Generate a new TypeORM migration |
+| `npm run migration:run` | Run pending migrations |
+| `npm run seed:run` | Run database seeders |

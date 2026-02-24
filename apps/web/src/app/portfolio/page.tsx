@@ -2,6 +2,7 @@
 
 import PageHeader from '@/components/blocks/Header';
 import { useAppContext } from '@/components/utils/context';
+import Image from 'next/image';
 import React from 'react';
 import { IoPersonOutline } from 'react-icons/io5';
 import { Masonry } from 'react-plock';
@@ -50,7 +51,13 @@ const PortfolioPage = () => {
               >
                 <h1 className='font-bold text-7xl'>{idx}</h1>
               </div>
-              <img src={item.src} className='bg-cover z-10' />
+              <Image
+                src={item.src}
+                alt={`Portfolio gallery image ${idx + 1}`}
+                width={400}
+                height={300}
+                className='object-cover w-full h-full z-10'
+              />
             </div>
           )}
         />

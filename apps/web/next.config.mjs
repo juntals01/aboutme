@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
+  transpilePackages: ['shared'],
   async rewrites() {
     return [
       {
-        source: "/api/public/contact-me",
-        destination: "http://backend/api/public/contact-me",
+        source: '/api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/:path*`,
       },
     ];
   },

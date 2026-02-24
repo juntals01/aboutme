@@ -1,5 +1,6 @@
 'use client';
 import React, { Suspense, useEffect, useState } from 'react';
+import Link from 'next/link';
 
 import LoadingSkeleton from '../ui/LoadingSkeleton';
 import Transition from '../ui/Transition';
@@ -69,10 +70,16 @@ const MainLayout = ({
             isSidebardShown
               ? 'translate-x-0 w-[200px] opacity-1 ease-in-out duration-300'
               : '-translate-x-full opacity-0 w-0'
-          } sm:w-[200px] sm:opacity-100 sm:translate-x-0 border-r border-[#1d1e22]`}
+          } sm:w-[200px] sm:opacity-100 sm:translate-x-0 border-r border-[#1d1e22] flex flex-col`}
         >
           <ProfileImage />
           <Navigation />
+          <Link
+            href='/login'
+            className='mt-4 mx-4 py-2 text-center text-sm font-medium text-[#777] hover:text-white border border-[#1d1e22] hover:border-[#444] rounded-md transition-colors'
+          >
+            Login
+          </Link>
           <Footer />
         </div>
 
