@@ -1,14 +1,38 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --portfolio-bg: #0B0F19;
-  --portfolio-accent: #6366f1;
+  --bg: #0B0F19;
+  --card: #111827;
+  --border: #1F2937;
+  --primary: #8B5CF6;
+  --primarySoft: #A78BFA;
+  --text: #F9FAFB;
+  --textSecondary: #D1D5DB;
+  --textMuted: #9CA3AF;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --shadowCard: 0 10px 30px rgba(0,0,0,0.4);
+  --glowPrimary: 0 0 40px rgba(139,92,246,0.35);
+  --radiusCard: 1.25rem;
+  --radiusButton: 0.75rem;
+  --radiusBadge: 9999px;
+  --gap: 1.5rem;
+  --container: 1200px;
+  --sectionSpacing: 2rem;
+  --cardPadding: 1.5rem;
 }
 
 body {
-  background-color: var(--portfolio-bg);
-  color: #e2e8f0;
+  background-color: var(--bg);
+  color: var(--textSecondary);
+  font-family: Inter, sans-serif;
+}
+
+::selection {
+  background-color: var(--primary);
+  color: var(--text);
 }

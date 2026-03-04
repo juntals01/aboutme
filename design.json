@@ -1,0 +1,89 @@
+{
+  "theme": {
+    "mode": "dark",
+    "colors": {
+      "background": "#0B0F19",
+      "card": "#111827",
+      "border": "#1F2937",
+      "primary": "#8B5CF6",
+      "primarySoft": "#A78BFA",
+      "textPrimary": "#F9FAFB",
+      "textSecondary": "#D1D5DB",
+      "textMuted": "#9CA3AF",
+      "success": "#10B981",
+      "warning": "#F59E0B",
+      "danger": "#EF4444"
+    }
+  },
+  "radius": {
+    "card": "1.25rem",
+    "button": "0.75rem",
+    "badge": "9999px"
+  },
+  "shadow": {
+    "card": "0 10px 30px rgba(0,0,0,0.4)",
+    "glowPrimary": "0 0 40px rgba(139,92,246,0.35)"
+  },
+  "layout": {
+    "grid": {
+      "columnsDesktop": 3,
+      "gap": "1.5rem"
+    },
+    "containerWidth": "1200px",
+    "sectionSpacing": "2rem"
+  },
+  "typography": {
+    "fontFamily": "Inter, sans-serif",
+    "heroTitle": {
+      "size": "2.5rem",
+      "weight": 700
+    },
+    "sectionTitle": {
+      "size": "1.125rem",
+      "weight": 600
+    },
+    "metricNumber": {
+      "size": "2.25rem",
+      "weight": 700
+    },
+    "body": {
+      "size": "0.95rem",
+      "weight": 400
+    }
+  },
+  "card": {
+    "padding": "1.5rem",
+    "borderWidth": "1px",
+    "borderStyle": "solid",
+    "borderColor": "#1F2937",
+    "background": "#111827",
+    "hoverEffect": {
+      "translateY": "-4px",
+      "transition": "all 0.3s ease"
+    }
+  },
+  "button": {
+    "primary": {
+      "background": "linear-gradient(135deg, #8B5CF6, #A78BFA)",
+      "color": "#ffffff",
+      "padding": "0.75rem 1.25rem",
+      "shadow": "0 0 20px rgba(139,92,246,0.4)"
+    },
+    "secondary": {
+      "background": "#1F2937",
+      "color": "#F9FAFB",
+      "border": "1px solid #374151"
+    }
+  },
+  "badge": {
+    "background": "#1F2937",
+    "color": "#D1D5DB",
+    "padding": "0.4rem 0.8rem"
+  },
+  "animation": {
+    "cardHoverLift": true,
+    "fadeInSections": true,
+    "duration": "300ms",
+    "easing": "ease-out"
+  }
+}

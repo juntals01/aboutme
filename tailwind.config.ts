@@ -8,6 +8,15 @@ import aspectRatio from '@tailwindcss/aspect-ratio';
 import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 
+// Design system from design.json (require for Tailwind CLI compatibility)
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const design = require('./design.json') as {
+  theme?: { colors?: Record<string, string> };
+  radius?: Record<string, string>;
+  shadow?: Record<string, string>;
+  typography?: { fontFamily?: string };
+};
+
 /** @type {import('tailwindcss').Config} */
 const config: Config = {
   content: [
@@ -23,10 +32,13 @@ const config: Config = {
         homebg: "url('/home-bg.jpg')",
       },
       colors: {
+        ...(design.theme?.colors && {
+          design: design.theme.colors as Record<string, string>,
+        }),
         portfolio: {
-          bg: '#0B0F19',
-          accent: '#6366f1',
-          'accent-light': '#818cf8',
+          bg: design.theme?.colors?.background ?? '#0B0F19',
+          accent: design.theme?.colors?.primary ?? '#8B5CF6',
+          'accent-light': design.theme?.colors?.primarySoft ?? '#A78BFA',
         },
         blue: {
           '50': '#f0f5fe',
@@ -143,7 +155,16 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['Poppins', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
+      },
+      borderRadius: {
+        'design-card': design.radius?.card ?? '1.25rem',
+        'design-button': design.radius?.button ?? '0.75rem',
+        'design-badge': design.radius?.badge ?? '9999px',
+      },
+      boxShadow: {
+        'design-card': design.shadow?.card ?? '0 10px 30px rgba(0,0,0,0.4)',
+        'design-glow': design.shadow?.glowPrimary ?? '0 0 40px rgba(139,92,246,0.35)',
       },
       maxWidth: {
         '8xl': '90rem',
