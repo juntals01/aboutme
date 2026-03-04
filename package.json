@@ -2,29 +2,51 @@
   "name": "aboutme",
   "version": "0.1.0",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "scripts": {
-    "dev": "(docker compose up -d || true) && turbo run dev",
-    "dev:web": "turbo run dev --filter=web",
-    "dev:api": "turbo run dev --filter=api",
-    "build": "turbo run build",
-    "build:web": "turbo run build --filter=web",
-    "build:api": "turbo run build --filter=api",
-    "lint": "turbo run lint",
-    "start": "turbo run start",
-    "clean": "turbo run clean && rm -rf node_modules",
-    "reset:all": "turbo run reset:all --filter=api",
-    "migration:generate": "turbo run migration:generate --filter=api",
-    "migration:run": "turbo run migration:run --filter=api",
-    "seed:run": "turbo run seed:run --filter=api"
+    "dev": "next dev --port 3000",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "clean": "rm -rf .next node_modules"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.7.18",
+    "@hookform/resolvers": "^3.3.4",
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-slot": "^1.0.2",
+    "axios": "^1.6.8",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "framer-motion": "^11.3.2",
+    "lucide-react": "^0.368.0",
+    "maxmind": "^4.3.20",
+    "next": "14.2.1",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-hook-form": "^7.51.3",
+    "react-icons": "^5.2.1",
+    "react-plock": "^3.2.0",
+    "react-spinners": "^0.13.8",
+    "tailwind-merge": "^2.2.2",
+    "tailwindcss-animate": "^1.0.7",
+    "typewriter-effect": "^2.21.0",
+    "zod": "^3.22.4",
+    "zustand": "latest"
   },
   "devDependencies": {
-    "turbo": "latest"
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.12",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.1",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   },
-  "packageManager": "npm@10.0.0",
   "engines": {
     "node": ">=18"
   }
