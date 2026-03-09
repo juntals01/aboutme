@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { AlertTriangle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -38,11 +39,16 @@ export default function BuildMVPPage() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [budget, setBudget] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const idea = searchParams.get('idea');
     if (idea) setTitle(idea);
   }, [searchParams]);
+
+  const handleSubmit = () => {
+    setShowModal(true);
+  };
 
   return (
     <div className="min-h-screen bg-portfolio-bg text-slate-200">
@@ -57,10 +63,23 @@ export default function BuildMVPPage() {
           </Button>
         </div>
 
+        {/* Not available banner */}
+        <div className="flex items-center gap-3 rounded-xl border border-amber-500/30 bg-amber-500/10 px-5 py-4 mb-8">
+          <AlertTriangle size={20} className="text-amber-400 shrink-0" />
+          <div>
+            <p className="text-sm font-medium text-amber-300">This feature is not available yet.</p>
+            <p className="text-xs text-amber-400/70 mt-0.5">
+              Submissions are currently closed. Contact me directly at{' '}
+              <a href="mailto:norbertoqjr@gmail.com" className="underline hover:text-amber-300">norbertoqjr@gmail.com</a>
+              {' '}to discuss your project.
+            </p>
+          </div>
+        </div>
+
         {/* Submit idea + budget */}
-        <div className="rounded-xl border border-white/10 bg-white/5 p-6 mb-10">
+        <div className="rounded-xl border border-white/10 bg-white/5 p-6 mb-10 opacity-60">
           <h2 className="text-lg font-semibold text-white mb-3">Submit your idea</h2>
-          <p className="text-slate-400 text-sm mb-4">Describe the SaaS you’d like built and your budget. I’ll review and approve requests.</p>
+          <p className="text-slate-400 text-sm mb-4">Describe the SaaS you&apos;d like built and your budget. I&apos;ll review and approve requests.</p>
           <Input
             placeholder="Title (e.g. AI Meeting Summarizer)"
             value={title}
@@ -80,7 +99,9 @@ export default function BuildMVPPage() {
             onChange={(e) => setBudget(e.target.value)}
             className="mb-4 bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-500 max-w-xs"
           />
-          <Button className="bg-portfolio-accent hover:bg-portfolio-accent-light text-white">Submit request</Button>
+          <Button onClick={handleSubmit} className="bg-portfolio-accent hover:bg-portfolio-accent-light text-white">
+            Submit request
+          </Button>
         </div>
 
         {/* Board */}
@@ -146,6 +167,45 @@ export default function BuildMVPPage() {
           </div>
         </div>
       </div>
+
+      {/* Not Available Modal */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowModal(false)} />
+          <div className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#111827] p-6 shadow-2xl">
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-white transition"
+              aria-label="Close"
+            >
+              <X size={18} />
+            </button>
+            <div className="flex flex-col items-center text-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-500/15 mb-4">
+                <AlertTriangle size={24} className="text-amber-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2">Not Available Yet</h3>
+              <p className="text-sm text-slate-400 mb-5">
+                Submissions are currently closed. Want to build something? Reach out directly and I&apos;ll get back to you within 24 hours.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3 w-full">
+                <a
+                  href="mailto:norbertoqjr@gmail.com"
+                  className="inline-flex items-center gap-2 rounded-lg bg-portfolio-accent hover:bg-portfolio-accent-light px-5 py-2.5 text-sm font-semibold text-white transition"
+                >
+                  Email Me
+                </a>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="rounded-lg border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-slate-300 hover:bg-white/10 transition"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
+
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Rocket,
@@ -16,6 +16,8 @@ import {
   ExternalLink,
   ChevronLeft,
   ChevronRight,
+  AlertTriangle,
+  X,
   Mail,
   Calendar,
   Star,
@@ -182,13 +184,12 @@ const outcomes = [
 
 /* ──────────────────────────────── page ──────────────────────────────── */
 export default function HomePage() {
-  const router = useRouter();
   const [idea, setIdea] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const v = idea.trim();
-    router.push(v ? `/build-mvp?idea=${encodeURIComponent(v)}` : '/build-mvp');
+    setShowModal(true);
   };
 
   return (
@@ -206,12 +207,11 @@ export default function HomePage() {
               <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-0">
                 {/* ── LEFT: copy + CTAs ── */}
                 <div className="flex flex-col justify-center gap-6 p-5 sm:p-8 lg:p-12 bg-[var(--card)]">
-                  <span className="inline-flex w-fit items-center gap-2 rounded-[var(--radiusBadge)] border border-[var(--success)]/30 bg-[var(--success)]/10 px-3 py-1 text-xs font-medium text-[var(--success)]">
+                  <span className="inline-flex w-fit items-center gap-2 rounded-[var(--radiusBadge)] border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-xs font-medium text-amber-400">
                     <span className="relative flex h-2 w-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--success)] opacity-75" />
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--success)]" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-400" />
                     </span>
-                    Available for MVP Builds
+                    Currently Unavailable
                   </span>
 
                   <div>
@@ -499,6 +499,46 @@ export default function HomePage() {
 
         </div>
       </div>
+
+      {/* Not Available Modal */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowModal(false)} />
+          <div className="relative w-full max-w-md rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6 shadow-2xl">
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 text-[var(--textMuted)] hover:text-[var(--text)] transition"
+              aria-label="Close"
+            >
+              <X size={18} />
+            </button>
+            <div className="flex flex-col items-center text-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-500/15 mb-4">
+                <AlertTriangle size={24} className="text-amber-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-[var(--text)] mb-2">Not Available Yet</h3>
+              <p className="text-sm text-[var(--textSecondary)] mb-5">
+                Submissions are currently closed. Want to build something? Reach out directly and I&apos;ll get back to you within 24 hours.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3 w-full">
+                <a
+                  href="mailto:norbertoqjr@gmail.com"
+                  className="inline-flex items-center gap-2 rounded-[var(--radiusButton)] px-5 py-2.5 text-sm font-semibold text-white transition"
+                  style={{ background: 'linear-gradient(135deg, var(--primary), var(--primarySoft))' }}
+                >
+                  <Mail size={16} /> Email Me
+                </a>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="rounded-[var(--radiusButton)] border border-[var(--border)] bg-[var(--bg)] px-5 py-2.5 text-sm font-medium text-[var(--textSecondary)] hover:bg-[var(--border)] transition"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
