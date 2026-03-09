@@ -6,6 +6,7 @@ import Link from 'next/link';
 const navLinks = [
   { label: 'Work', href: '#products' },
   { label: 'Build MVP', href: '/build-mvp' },
+  { label: 'Blog', href: '/blog' },
 ];
 
 export default function SiteHeader() {

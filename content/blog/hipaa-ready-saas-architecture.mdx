@@ -1,0 +1,82 @@
+---
+title: "Building a HIPAA-Ready SaaS: Architecture Decisions That Matter"
+description: "The security patterns and infrastructure choices I use to build healthcare-grade SaaS products — from validation layers to encrypted workflows."
+date: "2026-01-28"
+tags: ["HIPAA", "Security", "Architecture", "Backend"]
+---
+
+I build SaaS products that handle sensitive data. Even when a client isn't in healthcare, I treat HIPAA as a design constraint. It sets a high security bar that forces you to think about data flows, auditability, and defense in depth. Here's the architecture I use when building healthcare-grade products.
+
+## Why HIPAA Compliance Matters Beyond Healthcare
+
+HIPAA isn't just a checkbox for healthcare companies. It's a framework for handling any data that could harm someone if leaked. If you design for HIPAA from the start, you get input validation, encryption at rest, audit trails, and access controls as first-class concerns. That mindset translates to fintech, legal tech, and any domain where trust is non-negotiable.
+
+## Frontend Security
+
+The frontend is your first line of defense. I never trust client input.
+
+**Zod validation.** Every form submission goes through a Zod schema before it hits the API. I define schemas that match my backend DTOs so validation is consistent end-to-end. Invalid payloads never leave the client.
+
+```ts
+const patientSchema = z.object({
+  name: z.string().min(1).max(100),
+  email: z.string().email(),
+  dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+});
+```
+
+**Rate limiting and secure form handling.** I add rate limits on sensitive endpoints (login, password reset, data export). Forms use CSRF tokens and never log or store PHI in localStorage. I avoid putting sensitive data in URLs or query params.
+
+**CSP headers.** Content Security Policy headers lock down script sources, prevent inline scripts where possible, and block unauthorized third-party requests. I configure CSP in Next.js middleware or at the reverse proxy level.
+
+## Backend Security with NestJS
+
+The backend is where most security failures happen. I use NestJS because its structure enforces discipline.
+
+**DTOs with class-validator.** Every incoming request body is validated against a DTO. I use `class-validator` decorators and `ValidationPipe` globally so invalid or malformed payloads are rejected before they reach any service.
+
+```ts
+@IsString()
+@IsNotEmpty()
+@MaxLength(100)
+name: string;
+
+@IsEmail()
+email: string;
+```
+
+**RBAC with guards.** Role-based access control lives in guards. I check the user's role and the resource's tenant before allowing access. Guards run before the controller method, so unauthorized requests never touch the database.
+
+## Database: Encrypted Fields, Audit Trails, Soft Deletes
+
+**Encrypted fields.** PHI and other sensitive fields are encrypted at the application layer before being stored. I use a key management service (e.g., AWS KMS) and never store encryption keys in code or env vars that end up in logs.
+
+**Audit trails.** Every create, update, and delete on sensitive tables is logged. I store who did what, when, and from which IP. Audit logs go to a separate table or service and are never exposed through the main API.
+
+**Soft deletes.** I use soft deletes for records that might be subject to retention or legal hold. The `deletedAt` column lets me filter out "deleted" rows while preserving data for compliance.
+
+## Infrastructure
+
+**Dockerized services.** Each service runs in its own container. I use Docker Compose for local dev and ensure the same images run in staging and production. No drift between environments.
+
+**Environment isolation.** Dev, staging, and prod use separate databases, queues, and secrets. I never share credentials across environments.
+
+**AWS with VPCs.** Production runs in a VPC with private subnets for the API and database. Public-facing load balancers sit in public subnets. I use security groups to restrict traffic between tiers.
+
+## Queue Workers for Async Jobs
+
+I never send emails or push notifications synchronously in request handlers. PHI or user identifiers in error messages or logs can leak. I push jobs to a queue (SQS, Bull, or similar) and process them in workers. If a worker fails, the job retries. The HTTP response returns immediately without exposing internal state.
+
+## Common Mistakes Developers Make
+
+**Storing PHI in logs.** Logs go to monitoring tools, support tickets, and sometimes third parties. I never log PHI. I log IDs, timestamps, and error codes. If I need to debug, I query the database with proper access controls.
+
+**No input validation.** Assuming the frontend sends valid data is a recipe for injection and malformed records. I validate on both client and server. Always.
+
+**Shared databases.** Multi-tenant apps that share a database without proper row-level security or tenant isolation are a compliance nightmare. I use schema-based or row-based tenancy with strict guards.
+
+## Need a Secure MVP?
+
+If you're building a product that handles sensitive data and you want architecture that scales to HIPAA or similar standards, I can help. I've built healthcare and fintech products with these patterns. The same rigor. The same stack.
+
+Need a secure MVP? [Start here](/build-mvp).

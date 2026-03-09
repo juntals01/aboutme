@@ -1,0 +1,52 @@
+---
+title: "5 Things Every SaaS Founder Gets Wrong About Their MVP"
+description: "Common MVP mistakes that waste time and money — and what to do instead to validate faster and ship a product people actually want."
+date: "2026-01-15"
+tags: ["SaaS", "Startup", "MVP", "Founder Tips"]
+---
+
+I've built over 20 products. The ones that failed had the same patterns. The founders made the same mistakes I used to make. Here are the five things that kill MVPs before they ever get a chance to validate — and what to do instead.
+
+## 1. Building Too Many Features
+
+**Why founders do it:** You're excited. You can see the full product in your head. You want to impress users with a polished experience. So you add "just one more" feature, then another. Before you know it, your MVP has become a full product that took six months to build.
+
+**What goes wrong:** Every extra feature delays launch. Every delay means less time learning from real users. I've seen founders ship a bloated MVP that nobody understood because the core value was buried under 12 half-built features. Worse: you might discover the core hypothesis is wrong, and now you've wasted months on features that don't matter.
+
+**What to do instead:** MVP means minimum. Pick the one thing that validates your hypothesis. If you're building a task manager, the hypothesis might be "people will pay for a simple way to track tasks with their team." Ship that. Nothing else. No tags, no recurring tasks, no integrations. Write down your core hypothesis in one sentence. Cut everything that doesn't directly support proving or disproving it. Everything else is post-validation.
+
+## 2. Skipping Authentication
+
+**Why founders do it:** "I'll add login later" sounds reasonable. You want to move fast. Auth feels like plumbing, not product. So you build the cool stuff first and plan to bolt on user accounts when you're "ready."
+
+**What goes wrong:** Retrofitting auth is a nightmare. You'll have to go back and wrap every route, every API call, every piece of state in user context. You'll discover your data model assumes anonymous usage. You'll spend days (or weeks) untangling what should have been there from day one. I've done this. It's painful and error-prone.
+
+**What to do instead:** Auth is foundational, not optional. Build it on day 1. Use a proven library — Better Auth, NextAuth, or your framework's recommended solution. Email + password is enough for most SaaS. Add social login only if your product genuinely benefits from it. Wire up protected routes, session handling, and a simple user model before you build anything else. Your future self will thank you.
+
+## 3. No Payment Integration
+
+**Why founders do it:** "I'll validate the idea first, then add payments." Or: "Stripe seems complicated." Or: "I'll use a waitlist and charge later." It feels safer to get signups before asking for money.
+
+**What goes wrong:** Signups are not validation. A thousand people on a waitlist means nothing if none of them will pay. You can't validate willingness to pay without a payment flow. I've seen founders spend months building a product, launch to applause, then add Stripe and hear crickets. The idea was never validated. It was assumed.
+
+**What to do instead:** If you can't charge, you can't validate. Stripe takes a day to integrate. Do it early. Use Stripe Checkout for subscriptions or one-time payments. Add webhooks for subscription lifecycle events. Even if you offer a free trial, the payment form should be part of the signup flow. You need to know: will someone enter a card? That's the only metric that matters for a paid product.
+
+## 4. Choosing the Wrong Tech Stack
+
+**Why founders do it:** You want to learn something new. Or you've heard that Rust/Elixir/SvelteKit is the future. Or you're optimizing for scale before you have a single user. Bleeding-edge tech feels exciting. Boring feels like settling.
+
+**What goes wrong:** New tech means new problems. Undocumented edge cases. Fewer Stack Overflow answers. Slower iteration when you're stuck. I've watched founders burn two weeks debugging a framework issue that would have been a 10-minute fix with a mature stack. Your MVP is not the place to experiment. It's the place to ship.
+
+**What to do instead:** Pick boring, proven tools. Next.js for the frontend. PostgreSQL for the database. NestJS or Express for the API if you need one. These stacks have been battle-tested. You'll find answers. You'll move fast. Save the experiments for when you have traction and a team. For an MVP, boring wins.
+
+## 5. Perfectionism Over Progress
+
+**Why founders do it:** You don't want to ship something embarrassing. You want it to look good. You want the code to be clean. You're afraid of negative feedback. So you keep polishing. One more refactor. One more design pass. One more feature.
+
+**What goes wrong:** Perfect never ships. The market doesn't care about your clean architecture or pixel-perfect UI. It cares whether you solve a problem. I've seen founders spend months on an MVP that never launched because it was "almost ready." Meanwhile, someone else shipped something ugly in two weeks and got real users. Done beats perfect every time.
+
+**What to do instead:** Your MVP will have rough edges. That's the point. Ship it. Get feedback. Iterate. Aim for "a paying customer won't hit a blocker in the first session" — not zero defects. Cut scope until you can ship in days, not months. Launch, learn, improve. Perfect is the enemy of launched.
+
+---
+
+Need help avoiding these mistakes? I build MVPs in 3-7 days with proven architecture. [Submit your idea](/build-mvp).

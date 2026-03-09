@@ -1,0 +1,89 @@
+---
+title: "Next.js + NestJS: The Full-Stack Combo for SaaS MVPs"
+description: "Why I pair Next.js with NestJS for every SaaS build — and how the stack handles auth, real-time features, and multi-tenancy out of the box."
+date: "2026-01-20"
+tags: ["Next.js", "NestJS", "TypeScript", "Full-Stack"]
+---
+
+I've tried Express, Rails, Laravel, and a dozen other stacks. For SaaS MVPs, I keep coming back to Next.js and NestJS. They're both TypeScript-native, opinionated enough to move fast, and flexible enough to scale. Here's why I use this combo and how I structure real products with it.
+
+## Why This Stack Over Alternatives
+
+Express is minimal but leaves too much to you. Rails and Laravel are productive, but mixing Ruby or PHP with a React frontend adds context switching. Next.js + NestJS gives me one language, one type system, and two frameworks that play well together. I get SSR, API routes, and a backend that enforces structure from day one.
+
+## Next.js App Router
+
+I use the App Router for every new project. It's the default now, and it handles the patterns I need.
+
+**SSR and RSC.** Server components let me fetch data without client-side waterfalls. I use them for dashboards, lists, and any page where SEO or initial load matters. Client components handle interactivity. The split is clear.
+
+**API routes.** For simple proxies or webhook handlers, Next.js API routes are enough. For anything with business logic, I call the NestJS API. I don't put complex logic in Next.js routes.
+
+**Middleware for auth.** I use middleware to protect routes, redirect unauthenticated users, and attach session data. One place to enforce auth rules across the app.
+
+```ts
+// middleware.ts
+export function middleware(request: NextRequest) {
+  const token = request.cookies.get('session');
+  if (!token && request.nextUrl.pathname.startsWith('/dashboard')) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+  return NextResponse.next();
+}
+```
+
+## NestJS: Modules, DI, Guards, Interceptors
+
+NestJS gives me a backend that scales with the product.
+
+**Module system.** I organize the API into modules: AuthModule, UsersModule, BillingModule, etc. Each module owns its controllers, services, and dependencies. Cross-cutting concerns (logging, validation) live in global modules.
+
+**Dependency injection.** Services are injected, not instantiated. I can mock dependencies in tests and swap implementations without touching controllers. DI is built in, not bolted on.
+
+**Guards and interceptors.** Guards handle auth and RBAC. Interceptors handle logging, transformation, and error handling. I apply them at the controller or route level. The controller stays thin.
+
+## TypeORM with PostgreSQL
+
+I use TypeORM because it integrates cleanly with NestJS and supports migrations out of the box.
+
+**Entities.** I define entities that map to tables. Relations, indexes, and constraints live in the entity. TypeORM generates SQL that matches my schema.
+
+**Migrations.** I generate migrations from entity changes and run them in order. No manual SQL for schema evolution. Migrations are versioned and reversible.
+
+**Seeders.** I use seed scripts for dev and staging. Test users, sample data, and fixture data. Never in production.
+
+## Auth Pattern: JWT + Passport, Refresh Tokens, RBAC
+
+**JWT + Passport.** I use Passport strategies (JWT, local) with NestJS guards. The JWT contains the user ID and role. I validate it on every protected request.
+
+**Refresh tokens.** Access tokens are short-lived. Refresh tokens are stored securely (httpOnly cookies or a dedicated table) and used to issue new access tokens. I rotate refresh tokens on use to limit exposure.
+
+**RBAC.** Roles (admin, user, viewer) are stored on the user. Guards check the role before allowing access to controllers or routes. I keep the role model simple for MVPs; I can add permissions later if needed.
+
+## Real-Time: Server-Sent Events
+
+For notifications and live updates, I use SSE. It's simpler than WebSockets for one-way server-to-client flows. I've built notification systems, live dashboards, and progress indicators with SSE. NestJS handles the stream with a dedicated controller; the client uses `EventSource`.
+
+```ts
+// NestJS controller
+@Sse('notifications')
+notifications(@Req() req: Request): Observable<MessageEvent> {
+  return this.notificationService.getStream(req.user.id);
+}
+```
+
+## Multi-Tenancy Approaches
+
+**Schema-based vs row-based.** Schema-based tenancy uses one schema per tenant. Strong isolation, more operational overhead. Row-based tenancy adds a `tenantId` column to every table. Simpler, but requires discipline to never leak data across tenants. For most MVPs, row-based is enough. I add a global query filter in TypeORM so every query is scoped by tenant.
+
+## Deployment: Docker Compose for Dev, AWS/Vercel for Prod
+
+**Docker Compose.** Local dev runs Next.js, NestJS, Postgres, Redis, and any workers in containers. One command to bring everything up. No "works on my machine" issues.
+
+**Production.** Next.js deploys to Vercel. NestJS deploys to AWS (ECS, Lambda, or EC2) or Railway. Postgres runs on RDS, Supabase, or Neon. I use environment variables for config. The same Docker images can run in staging if I want parity.
+
+## Want This Stack for Your MVP?
+
+I've built multiple SaaS products with this stack. Auth, billing, real-time, multi-tenancy. It's not theoretical. It's the same patterns I use when I ship.
+
+Want this stack for your MVP? [Let's talk](/build-mvp).

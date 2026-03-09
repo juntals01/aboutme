@@ -1,0 +1,74 @@
+---
+title: "How I Build SaaS MVPs in 5 Days"
+description: "My proven workflow for turning a SaaS idea into a deployed, production-ready MVP in under a week — from scoping to launch."
+date: "2026-02-10"
+tags: ["MVP", "SaaS", "Process", "Startup"]
+---
+
+I've shipped dozens of MVPs. The ones that mattered were the ones I got in front of users fast. Not because I'm a genius, but because I stopped overbuilding and started validating. Here's the exact workflow I use to go from idea to deployed product in five days.
+
+## Why Speed Matters for Validation
+
+Every week you spend polishing before launch is a week you're not learning. The market doesn't care about your perfect architecture. It cares whether anyone will pay for what you're building. I've seen founders spend six months on a product nobody wanted. I've also seen a scrappy MVP land its first paying customer in two weeks. The difference is ruthless prioritization and a system that forces you to ship.
+
+**Speed compounds.** The faster you launch, the sooner you get feedback. The sooner you get feedback, the faster you iterate. That loop is your competitive advantage.
+
+## Day 1: Scoping and Architecture
+
+I block the entire first day for planning. No code. Just clarity.
+
+**Define the core features.** I write down exactly three to five things the MVP must do. Not "nice to have." Must do. If a feature doesn't directly support the core value proposition, it gets cut. I use a simple rule: if I can't explain the MVP in one sentence, it's too big.
+
+**Database schema.** I sketch tables, relationships, and indexes. I keep it minimal. User, subscription, and the one or two entities that drive the product. TypeORM entities map directly to this. I've learned that a clean schema on Day 1 saves days of refactoring later.
+
+**Auth strategy.** I pick one approach and stick to it. For most SaaS: email + password with a library like Better Auth or NextAuth. Social login only if the product genuinely benefits from it. I don't overthink this. Auth is plumbing.
+
+By end of Day 1, I have a written spec, a schema diagram, and a clear auth flow. That document is my contract with myself.
+
+## Day 2–3: Core Build
+
+This is where the bulk of the work happens. I split it into frontend and backend, but I build them in parallel where possible.
+
+**Next.js frontend.** I start with the layout, routing, and the main user flows. Landing page, signup, login, dashboard. I use shadcn/ui or similar for speed. I don't design from scratch. I copy patterns that work and adapt them. The goal is a functional UI that a user can click through without confusion.
+
+**NestJS API.** I scaffold the backend with modules for auth, the core domain, and any integrations. TypeORM entities go in first. Then controllers and services. I keep controllers thin and push logic into services. I've found that this structure scales when the product grows.
+
+**Auth + dashboard.** I wire up the auth flow end-to-end. Protected routes. Session handling. A simple dashboard that shows the user their data. For most MVPs, the dashboard is a list view and a detail view. Nothing fancy.
+
+By end of Day 3, I can sign up, log in, and perform the core actions. It's ugly in places. That's fine.
+
+## Day 4: Integrations
+
+Day 4 is about making the product real. Payments, email, and any AI or third-party features.
+
+**Stripe.** I integrate Stripe for subscriptions or one-time payments. Checkout session, webhooks, customer portal. I use Stripe's prebuilt components when possible. Custom payment UIs are a time sink. I've built full Stripe flows in under two hours using their docs and webhook handlers.
+
+**Email notifications.** I add transactional email for signup, password reset, and key events. Resend, SendGrid, or Postmark. I keep templates minimal. Plain text is often better than HTML for MVP.
+
+**AI features.** If the product needs AI, I add it here. OpenAI API, embeddings, or a simple chat interface. I scope it to one or two use cases. I don't build a general-purpose AI layer. I solve a specific problem.
+
+By end of Day 4, the product can take money and communicate with users. It's real.
+
+## Day 5: QA, Hardening, Deployment
+
+Day 5 is about making it production-ready. Not perfect. Ready.
+
+**QA.** I click through every flow. Signup, login, core actions, payment, email. I fix obvious bugs. I don't aim for zero defects. I aim for "a paying customer won't hit a blocker in the first session."
+
+**Hardening.** I add error boundaries, loading states, and basic validation. I ensure env vars are set correctly. I run the linter and fix critical issues. I add a simple health check endpoint if the API is separate.
+
+**Deployment.** Frontend goes to Vercel. API goes to AWS (ECS, Lambda, or a small EC2) or Railway. Database: managed Postgres (RDS, Supabase, or Neon). I use environment-based config. I've deployed to production so many times that this is now routine. The key is having a checklist and not skipping steps.
+
+By end of Day 5, the MVP is live. Real URL. Real database. Real payments.
+
+## The Role of AI Tools
+
+I use Cursor and Claude heavily. They don't replace judgment. They compress boilerplate. I can generate a full auth flow in 20 minutes. I can scaffold TypeORM entities from a schema in minutes. I can get a Stripe webhook handler written and tested in one session. The AI handles the repetitive parts. I handle architecture, product decisions, and quality control.
+
+**I still review every line.** I still run tests. I still type-check. AI accelerates. It doesn't replace.
+
+## Ready to Build?
+
+If you have an idea and want it turned into a real product in days, not months, I can help. I've done this for myself and for clients. The same workflow. The same stack. The same focus on shipping.
+
+Ready to build? [Submit your idea](/build-mvp).

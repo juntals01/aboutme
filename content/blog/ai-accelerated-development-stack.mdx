@@ -1,0 +1,92 @@
+---
+title: "My AI-Accelerated Development Stack: Cursor, Claude, and ChatGPT"
+description: "How I use AI coding tools to ship SaaS products 3-5x faster without sacrificing code quality or architecture."
+date: "2026-02-05"
+tags: ["AI", "Cursor", "Claude", "Productivity"]
+---
+
+AI-assisted coding gets a bad rap. People assume it's "vibe coding" — slapping together whatever the model suggests and hoping it works. That's not what I do. I use AI as a force multiplier. Same standards. Same architecture. Just faster execution. Here's my stack and how I use it.
+
+## Why This Isn't Vibe Coding
+
+Vibe coding is when you prompt, accept, and ship. No review. No tests. No understanding. I've seen the results: brittle code, security holes, and tech debt that takes weeks to unwind.
+
+**AI-accelerated development is different.** I treat the model as a senior pair programmer. It suggests. I decide. It generates boilerplate. I own the architecture. It writes the first draft. I refine, test, and validate. The AI compresses time. It doesn't replace judgment.
+
+I ship 3–5x faster than I did two years ago. Code quality has not dropped. If anything, I catch more edge cases because I'm not exhausted from typing boilerplate.
+
+## Cursor as Primary IDE
+
+Cursor is my daily driver. I rarely leave it.
+
+**Inline completions.** Tab-complete for whole lines and blocks. When I'm writing a function, Cursor suggests the next logical step. I accept, edit, or reject. For repetitive patterns — mapping over arrays, building API responses, defining TypeORM columns — this saves hours per week.
+
+**Multi-file edits.** I can ask Cursor to "add a new endpoint for X and wire it to the frontend." It touches the controller, service, route, and React component. I review the diff. I run the app. I fix what's wrong. The alternative is context-switching across five files myself. Cursor does the mechanical work.
+
+**Agent mode.** For larger tasks — "implement Stripe subscription flow" or "add email verification to auth" — I use the agent. It reads the codebase, proposes changes, and applies them. I still review everything. But the agent navigates the project faster than I can. It finds the right files. It follows existing patterns. It's like having a very fast junior dev who never gets tired.
+
+Cursor doesn't replace my knowledge of Next.js, NestJS, or TypeORM. It accelerates the parts I already know how to do.
+
+## Claude for Architecture and Complex Logic
+
+When I need to think, I use Claude.
+
+**Architecture decisions.** "Should I use a monolith or separate API?" "How do I structure modules for this domain?" Claude doesn't just answer. It lays out tradeoffs. I've used it to design event-driven flows, choose between REST and GraphQL, and plan database migrations. It's a sounding board that knows the ecosystem.
+
+**Code review.** I paste in my code and ask: "What's wrong with this? What would you change?" Claude catches logic errors, suggests cleaner patterns, and flags potential bugs. I don't accept every suggestion. But it surfaces things I miss when I'm deep in the code.
+
+**Complex logic.** Recursive functions, state machines, parsing logic — the kind of code that requires careful thought. I describe the problem. Claude proposes a solution. I adapt it, test it, and own it. I've built entire auth flows, webhook handlers, and data transformation pipelines this way in under an hour.
+
+Claude is for the hard stuff. The stuff that benefits from reasoning, not just pattern matching.
+
+## ChatGPT for Quick Lookups and Brainstorming
+
+ChatGPT is my fast reference.
+
+**API docs.** "What's the Stripe webhook signature verification flow?" "How do I use the Resend API for transactional email?" I get answers in seconds. No digging through docs. I verify critical details, but ChatGPT gets me 80% of the way there.
+
+**Brainstorming.** "What are five ways to reduce churn for a B2B SaaS?" "What should a cancellation flow include?" I use it for ideas, not implementation. It's a sparring partner for product and growth questions.
+
+**Syntax and snippets.** "Write a regex for email validation." "Give me a TypeScript type for a paginated API response." Quick, disposable code. I copy, adapt, and move on.
+
+ChatGPT is the fastest tool in my stack. It's not for architecture. It's for "I need this answer now."
+
+## Pencil.dev for Design Prototyping
+
+Before I write frontend code, I often prototype in Pencil.
+
+**Visual layout.** I sketch screens, components, and flows. Pencil's AI helps me iterate on layout and structure. I export or reference the design when building in React. It keeps me from over-designing in code.
+
+**Design decisions.** "What does a good dashboard for this use case look like?" I use Pencil to explore options. By the time I open Cursor, I know what I'm building. Less back-and-forth. Fewer "this doesn't feel right" moments mid-build.
+
+Pencil sits between idea and implementation. It's where I make design mistakes cheaply.
+
+## Concrete Productivity Gains
+
+I don't just feel faster. I measure it.
+
+- **Auth flow:** Full signup, login, session handling, and password reset in about 20 minutes. Used to take me half a day.
+- **Stripe integration:** Checkout, webhooks, customer portal in under two hours. Used to take a full day.
+- **CRUD + dashboard:** List view, detail view, create/edit forms, and API endpoints in one focused session. Used to span two days.
+- **TypeORM entities:** Schema to entities to migrations in minutes. Used to take an hour of careful typing.
+
+The gains are largest for boilerplate and well-documented patterns. The gains are smaller for truly novel logic. But even there, AI helps me explore options faster.
+
+## Quality Controls: I Still Review Everything
+
+Speed without quality is worthless. I enforce a few rules:
+
+- **Review every line.** I never commit AI-generated code without reading it. I fix style, logic, and security.
+- **Run tests.** I add tests for critical paths. I run them before deploy. AI can write tests. I still run them.
+- **Type-check.** TypeScript stays strict. No `any` escapes. If the AI suggests something that breaks types, I fix it.
+- **Deploy with a checklist.** Env vars, migrations, webhooks, error handling. I don't skip steps because I'm in a hurry.
+
+AI accelerates. It doesn't excuse sloppiness.
+
+## Want an AI-Built MVP?
+
+I use this stack to build production-ready MVPs in days. Not prototypes. Not demos. Real products with auth, payments, and deployment.
+
+If you have an idea and want it built fast, with the same standards I apply to my own work, let's talk.
+
+Want an AI-built MVP? [Let's build it](/build-mvp).
