@@ -10,8 +10,9 @@ alwaysApply: false
 
 - **Framework**: Next.js 14 (App Router)
 - **UI**: shadcn/ui + TailwindCSS
-- **Animations**: Framer Motion (subtle fade-in / slide-up via `SectionReveal`)
+- **Animations**: Framer Motion (subtle fade-in / slide-up via `Reveal`)
 - **Icons**: lucide-react
+- **Blog**: MDX via `gray-matter` + `next-mdx-remote/rsc`
 - **Design tokens**: `design.json` → CSS variables
 
 ## Design System
@@ -29,15 +30,40 @@ className="bg-[#111827] text-[#F9FAFB]"
 
 Key variables: `--bg`, `--card`, `--border`, `--primary`, `--primarySoft`, `--text`, `--textSecondary`, `--textMuted`, `--success`, `--radiusCard`, `--radiusButton`, `--radiusBadge`, `--shadowCard`, `--glowPrimary`, `--gap`, `--container`, `--cardPadding`.
 
+## Responsive Design
+
+- **Mobile-first**: always start with mobile styles, add `sm:` / `md:` / `lg:` breakpoints
+- **SiteHeader**: hamburger menu on `< md`, inline nav on `md+`
+- **Homepage grid**: `grid-cols-1 md:grid-cols-12` — cards use `col-span-1 md:col-span-N`
+- **Hero padding**: `p-5 sm:p-8 lg:p-12` (tighter on mobile)
+- **Tables**: use `hidden sm:block` for desktop table + `sm:hidden` card view for mobile
+- **Buttons**: always add `flex-wrap` when multiple CTAs sit in a row
+
 ## Component Patterns
 
 - `CardShell` — reusable card with hover lift + glow, uses design tokens
-- `SiteHeader` — sticky header with nav links
-- Pages use `SectionReveal` wrapper for scroll animations
-- Homepage is a card-grid layout (`grid-cols-12`)
+- `SiteHeader` — sticky header with mobile hamburger (lucide `Menu`/`X` icons)
+- `JsonLd` — server component injecting `<script type="application/ld+json">`
+- Homepage uses `Reveal` wrapper (Framer Motion) for scroll animations
+
+## SEO
+
+- Root `layout.tsx` has expanded `Metadata` (OG, Twitter, keywords, canonical, `metadataBase`)
+- Root layout includes JSON-LD (`Person`, `WebSite`, `ProfessionalService`)
+- Blog posts get per-page `generateMetadata` + `Article` JSON-LD
+- `robots.ts` and `sitemap.ts` use Next.js Metadata API
+- Sub-routes needing metadata but having `'use client'` pages use a `layout.tsx` wrapper
+
+## Blog
+
+- Posts are `.mdx` files in `content/blog/` with frontmatter: `title`, `description`, `date`, `tags`
+- `src/lib/blog.ts` reads and parses them (sorted by date descending)
+- Blog index at `/blog`, posts at `/blog/[slug]` with `generateStaticParams`
+- Prose styling via `prose prose-invert` with CSS variable overrides
 
 ## File Organization
 
 - shadcn components: `src/components/ui/`
 - Layout components: `src/components/layout/`
-- Feature sections inline in page files or in `src/components/sections/`
+- Reusable components: `src/components/` (e.g. `JsonLd.tsx`)
+- Blog content: `content/blog/*.mdx`

@@ -9,15 +9,26 @@ Single Next.js 14 portfolio website (no monorepo, no backend API).
 
 ```
 src/
-  app/            → App Router pages & layouts
+  app/
+    page.tsx          → Homepage (card-grid layout)
+    blog/page.tsx     → Blog index
+    blog/[slug]/      → Blog post pages (MDX)
+    build-mvp/        → MVP request board (Canny-style)
+    robots.ts         → Generated robots.txt
+    sitemap.ts        → Generated sitemap.xml
   components/
-    layout/       → SiteHeader
-    ui/           → shadcn/ui primitives (button, input, textarea, card-shell)
+    layout/           → SiteHeader (with mobile hamburger menu)
+    ui/               → shadcn/ui primitives (button, input, textarea, card-shell)
+    JsonLd.tsx        → Reusable JSON-LD structured data component
   lib/
-    design.ts     → Design token loader from design.json
-    utils.ts      → Tailwind merge utility
-design.json       → Source-of-truth design system tokens
-public/           → Static assets (profile.jpg, portfolio images)
+    blog.ts           → MDX blog post reader (gray-matter + next-mdx-remote)
+    design.ts         → Design token loader from design.json
+    utils.ts          → Tailwind merge utility
+content/
+  blog/               → MDX blog post files (frontmatter: title, description, date, tags)
+design.json           → Source-of-truth design system tokens
+public/               → Static assets (profile.jpg, portfolio images)
+.agents/skills/       → Marketing skills (coreyhaines31/marketingskills)
 ```
 
 ## Key Conventions
@@ -26,6 +37,8 @@ public/           → Static assets (profile.jpg, portfolio images)
 - **Design tokens** live in `design.json` and are exposed as CSS variables in `globals.css`
 - **Styling** uses `var(--*)` CSS variables inline (e.g. `bg-[var(--card)]`, `text-[var(--text)]`)
 - **Dark theme only** — background `#0B0F19`, accent `#8B5CF6`
+- **SEO**: JSON-LD structured data, per-page metadata, robots.txt, sitemap.xml
+- **Blog**: MDX files in `content/blog/`, parsed by `src/lib/blog.ts`
 - Path alias `@/` maps to `./src/`
 
 ## Commands
