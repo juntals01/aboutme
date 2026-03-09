@@ -1,9 +1,10 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useCallback, useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Rocket,
   Zap,
@@ -12,6 +13,9 @@ import {
   Layers,
   CheckCircle2,
   ArrowRight,
+  ExternalLink,
+  ChevronLeft,
+  ChevronRight,
   Mail,
   Calendar,
   Star,
@@ -31,6 +35,93 @@ function Reveal({ children, className, id }: { children: React.ReactNode; classN
     >
       {children}
     </motion.div>
+  );
+}
+
+/* ──────────────────────────── outcome slider ──────────────────────────── */
+function OutcomeSlider() {
+  const [idx, setIdx] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const next = useCallback(() => setIdx((i) => (i + 1) % outcomes.length), []);
+  const prev = useCallback(() => setIdx((i) => (i - 1 + outcomes.length) % outcomes.length), []);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(next, 4000);
+    return () => clearInterval(id);
+  }, [paused, next]);
+
+  const { quote, label, role } = outcomes[idx];
+
+  return (
+    <CardShell className="h-full flex flex-col">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-[1.125rem] font-semibold text-[var(--text)]">Case Outcomes</h2>
+        <div className="flex items-center gap-1">
+          <button
+            onClick={prev}
+            aria-label="Previous outcome"
+            className="rounded-full p-1.5 text-[var(--textMuted)] hover:bg-[var(--border)] hover:text-[var(--text)] transition"
+          >
+            <ChevronLeft size={16} />
+          </button>
+          <button
+            onClick={next}
+            aria-label="Next outcome"
+            className="rounded-full p-1.5 text-[var(--textMuted)] hover:bg-[var(--border)] hover:text-[var(--text)] transition"
+          >
+            <ChevronRight size={16} />
+          </button>
+        </div>
+      </div>
+
+      <div
+        className="relative flex-1 min-h-[160px]"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -30 }}
+            transition={{ duration: 0.25 }}
+            className="rounded-[var(--radiusCard)] border border-[var(--border)] bg-[var(--bg)] p-5"
+          >
+            <div className="flex gap-1 mb-3">
+              {[...Array(5)].map((_, j) => (
+                <Star key={j} size={12} className="fill-[var(--warning)] text-[var(--warning)]" />
+              ))}
+            </div>
+            <p className="text-sm text-[var(--textSecondary)] italic leading-relaxed">
+              &ldquo;{quote}&rdquo;
+            </p>
+            <div className="mt-3">
+              <span className="text-sm font-medium text-[var(--text)]">{label}</span>
+              <span className="text-xs text-[var(--textMuted)] ml-1">&middot; {role}</span>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* dots */}
+      <div className="flex justify-center gap-1.5 mt-4">
+        {outcomes.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIdx(i)}
+            aria-label={`Go to outcome ${i + 1}`}
+            className={`h-1.5 rounded-full transition-all duration-300 ${
+              i === idx
+                ? 'w-6 bg-[var(--primary)]'
+                : 'w-1.5 bg-[var(--border)] hover:bg-[var(--textMuted)]'
+            }`}
+          />
+        ))}
+      </div>
+    </CardShell>
   );
 }
 
@@ -56,10 +147,14 @@ const securityBullets = [
 ];
 
 const projects = [
-  { name: 'ExpirationReminderAI', desc: 'AI-powered contract & deadline tracking SaaS.', tags: ['Next.js', 'OpenAI', 'PostgreSQL'] },
-  { name: 'PriceAlertly', desc: 'Competitor price monitoring SaaS.', tags: ['Next.js', 'NestJS', 'Redis'] },
-  { name: 'CaseDigestMaker', desc: 'Legal AI research platform.', tags: ['Next.js', 'Claude API', 'TypeORM'] },
-  { name: 'Klicky MVP', desc: 'Multi-tenant SaaS built with NestJS + Next.js.', tags: ['Next.js', 'NestJS', 'Multi-tenant'] },
+  { name: 'ExpirationReminderAI', desc: 'AI-powered contract & deadline tracking SaaS.', tags: ['Next.js', 'OpenAI', 'PostgreSQL'], url: 'https://expirationreminderai.com/', image: '/portfolio/expirationreminderai.png' },
+  { name: 'PriceAlertly', desc: 'Competitor price monitoring SaaS.', tags: ['Next.js', 'NestJS', 'Redis'], url: 'https://pricealertly.com/', image: '/portfolio/pricealertly.png' },
+  { name: 'CaseDigestMaker', desc: 'Legal AI research platform.', tags: ['Next.js', 'Claude API', 'TypeORM'], url: 'https://casedigestmaker.com/', image: '/portfolio/casedigestmaker.png' },
+  { name: 'Klicky MVP', desc: 'Multi-tenant SaaS built with NestJS + Next.js.', tags: ['Next.js', 'NestJS', 'Multi-tenant'], url: 'https://klicky.co.il/', image: '/portfolio/klicky.png' },
+  { name: 'Currinda', desc: 'Event management & association platform.', tags: ['Next.js', 'NestJS', 'AWS'], url: 'https://currinda.com/', image: '/portfolio/currinda.png' },
+  { name: 'CasinoFiles', desc: 'Top 100 slots charts & casino analytics.', tags: ['Next.js', 'PostgreSQL', 'Analytics'], url: 'https://casinofiles.com/', image: '/portfolio/casinofiles.png' },
+  { name: 'Kuxinero', desc: 'Rooftop restaurant website in Cebu, Philippines.', tags: ['Next.js', 'Tailwind', 'SEO'], url: 'https://kuxinero.com/', image: '/portfolio/kuxinero.png' },
+  { name: 'Bilal Dannoun', desc: 'Marriage celebrant platform in Sydney, Australia.', tags: ['Next.js', 'Booking', 'SEO'], url: 'https://www.bilaldannoun.com/', image: '/portfolio/bilaldannoun.png' },
 ];
 
 const services = [
@@ -77,8 +172,12 @@ const processSteps = [
 ];
 
 const outcomes = [
-  { quote: 'Shipped MVP in 5 days — ready for beta users.', label: 'Sample outcome' },
-  { quote: 'Reduced manual work by 80% with AI automation.', label: 'Sample outcome' },
+  { quote: 'Shipped MVP in 5 days — ready for beta users.', label: 'ExpirationReminderAI', role: 'SaaS Product' },
+  { quote: 'Reduced manual work by 80% with AI automation.', label: 'Klicky MVP', role: 'WhatsApp Automation' },
+  { quote: 'AI extracts contract deadlines in under 30 seconds — zero manual data entry.', label: 'ExpirationReminderAI', role: 'HIPAA-Compliant SaaS' },
+  { quote: 'Multi-tenant architecture deployed in 2 weeks with full RBAC and SSE notifications.', label: 'Klicky MVP', role: 'Multi-tenant Platform' },
+  { quote: 'Price monitoring across 200+ competitor products — fully automated alerts.', label: 'PriceAlertly', role: 'E-commerce SaaS' },
+  { quote: 'AI-powered legal research reduced case digest time from hours to minutes.', label: 'CaseDigestMaker', role: 'Legal AI Platform' },
 ];
 
 /* ──────────────────────────────── page ──────────────────────────────── */
@@ -295,24 +394,44 @@ export default function HomePage() {
                 <h2 className="text-[1.125rem] font-semibold text-[var(--text)]">Products & MVPs</h2>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[var(--gap)]">
-                {projects.map(({ name, desc, tags }) => (
-                  <div
+                {projects.map(({ name, desc, tags, url, image }) => (
+                  <a
                     key={name}
-                    className="rounded-[var(--radiusCard)] border border-[var(--border)] bg-[var(--bg)] p-4 transition hover:-translate-y-0.5"
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group rounded-[var(--radiusCard)] border border-[var(--border)] bg-[var(--bg)] overflow-hidden transition hover:-translate-y-1 hover:border-[var(--primary)]/40 hover:shadow-[0_0_20px_rgba(139,92,246,0.15)]"
                   >
-                    <h3 className="font-semibold text-[var(--text)] mb-1">{name}</h3>
-                    <p className="text-xs text-[var(--textMuted)] mb-3">{desc}</p>
-                    <div className="flex flex-wrap gap-1">
-                      {tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-[var(--radiusBadge)] bg-[var(--border)] px-2 py-0.5 text-[0.65rem] text-[var(--textMuted)]"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                    <div className="relative w-full aspect-[16/10] overflow-hidden bg-[var(--card)]">
+                      <Image
+                        src={image}
+                        alt={`${name} — ${desc}`}
+                        fill
+                        className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-transparent to-transparent opacity-60" />
+                      <div className="absolute top-2 right-2 rounded-full bg-[var(--card)]/80 p-1.5 opacity-0 transition-opacity group-hover:opacity-100 backdrop-blur-sm">
+                        <ExternalLink size={12} className="text-[var(--primary)]" />
+                      </div>
                     </div>
-                  </div>
+                    <div className="p-4">
+                      <h3 className="font-semibold text-[var(--text)] mb-1 flex items-center gap-1.5">
+                        {name}
+                      </h3>
+                      <p className="text-xs text-[var(--textMuted)] mb-3">{desc}</p>
+                      <div className="flex flex-wrap gap-1">
+                        {tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-[var(--radiusBadge)] bg-[var(--border)] px-2 py-0.5 text-[0.65rem] text-[var(--textMuted)]"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </a>
                 ))}
               </div>
             </CardShell>
@@ -346,24 +465,9 @@ export default function HomePage() {
             </CardShell>
           </Reveal>
 
-          {/* ═══ 5.9 OUTCOMES ═══ */}
+          {/* ═══ 5.9 OUTCOMES SLIDER ═══ */}
           <Reveal className="col-span-1 md:col-span-6">
-            <CardShell className="h-full">
-              <h2 className="text-[1.125rem] font-semibold text-[var(--text)] mb-4">Case Outcomes</h2>
-              <div className="flex flex-col gap-4">
-                {outcomes.map(({ quote, label }) => (
-                  <div key={quote} className="rounded-[var(--radiusCard)] border border-[var(--border)] bg-[var(--bg)] p-4">
-                    <div className="flex gap-1 mb-2">
-                      {[...Array(5)].map((_, j) => (
-                        <Star key={j} size={12} className="fill-[var(--warning)] text-[var(--warning)]" />
-                      ))}
-                    </div>
-                    <p className="text-sm text-[var(--textSecondary)] italic">&ldquo;{quote}&rdquo;</p>
-                    <span className="text-xs text-[var(--textMuted)] mt-2 block">{label}</span>
-                  </div>
-                ))}
-              </div>
-            </CardShell>
+            <OutcomeSlider />
           </Reveal>
 
           {/* ═══ 5.10 FINAL CTA ═══ */}
