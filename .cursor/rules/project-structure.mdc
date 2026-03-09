@@ -1,41 +1,38 @@
 ---
-description: Turborepo monorepo project structure and conventions
+description: Project structure and conventions for the portfolio website
 alwaysApply: true
 ---
 
 # Project Structure
 
-This is a Turborepo monorepo with the following layout:
+Single Next.js 14 portfolio website (no monorepo, no backend API).
 
 ```
-apps/
-  web/    → Next.js 14 frontend (port 3000)
-  api/    → NestJS backend (port 4000)
-packages/
-  shared/ → Shared types, constants, utilities
+src/
+  app/            → App Router pages & layouts
+  components/
+    layout/       → SiteHeader
+    ui/           → shadcn/ui primitives (button, input, textarea, card-shell)
+  lib/
+    design.ts     → Design token loader from design.json
+    utils.ts      → Tailwind merge utility
+design.json       → Source-of-truth design system tokens
+public/           → Static assets (profile.jpg, portfolio images)
 ```
 
 ## Key Conventions
 
-- **Root `.env`** holds all environment variables — apps read from `../../.env`
-- **Docker Compose** runs Postgres, Redis, MinIO with `aboutme-` prefix
-- Run `npm run dev` at root to start both apps via Turbo
-- Run `npm run reset:all` at root to drop DB, run migrations, then seeders
-
-## Package References
-
-- Shared package is referenced as `"shared": "*"` in workspace dependencies
-- Import shared code via `import { ... } from 'shared'`
+- **No backend / no API** — this is a static portfolio site
+- **Design tokens** live in `design.json` and are exposed as CSS variables in `globals.css`
+- **Styling** uses `var(--*)` CSS variables inline (e.g. `bg-[var(--card)]`, `text-[var(--text)]`)
+- **Dark theme only** — background `#0B0F19`, accent `#8B5CF6`
+- Path alias `@/` maps to `./src/`
 
 ## Commands
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start all apps |
-| `npm run dev:web` | Start frontend only |
-| `npm run dev:api` | Start backend only |
-| `npm run build` | Build all apps |
-| `npm run reset:all` | Drop DB + migrations + seeders |
-| `npm run migration:generate` | Generate a new TypeORM migration |
-| `npm run migration:run` | Run pending migrations |
-| `npm run seed:run` | Run database seeders |
+| `npm run dev` | Start dev server on port 3000 |
+| `npm run build` | Production build |
+| `npm run lint` | ESLint check |
+| `npm run clean` | Remove .next and node_modules |

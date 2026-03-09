@@ -4,30 +4,9 @@ node_modules/
 # Build output
 .next/
 out/
-dist/
-
-# Turbo
-.turbo/
 
 # Logs
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# Lock files
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
-
-# Runtime
-*.pid
-*.seed
-*.pid.lock
-
-# Testing
-coverage/
-.nyc_output/
 
 # Environment variables
 .env
@@ -42,9 +21,14 @@ coverage/
 
 # OS
 .DS_Store
+Thumbs.db
+*:Zone.Identifier
 
 # TypeScript
 *.tsbuildinfo
 
-# NestJS
-dist/
+# AI tool symlinks (only .agents/ is needed for Cursor)
+.agent/
+.claude/
+.kiro/
+.windsurf/
