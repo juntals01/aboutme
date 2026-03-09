@@ -106,7 +106,7 @@ export default function HomePage() {
 
               <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-0">
                 {/* ── LEFT: copy + CTAs ── */}
-                <div className="flex flex-col justify-center gap-6 p-8 lg:p-12 bg-[var(--card)]">
+                <div className="flex flex-col justify-center gap-6 p-5 sm:p-8 lg:p-12 bg-[var(--card)]">
                   <span className="inline-flex w-fit items-center gap-2 rounded-[var(--radiusBadge)] border border-[var(--success)]/30 bg-[var(--success)]/10 px-3 py-1 text-xs font-medium text-[var(--success)]">
                     <span className="relative flex h-2 w-2">
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--success)] opacity-75" />
@@ -158,7 +158,7 @@ export default function HomePage() {
                 </div>
 
                 {/* ── RIGHT: form + metrics ── */}
-                <div className="flex flex-col gap-6 p-8 lg:p-12 bg-gradient-to-br from-[var(--card)] to-[var(--bg)] border-t lg:border-t-0 lg:border-l border-[var(--border)]">
+                <div className="flex flex-col gap-6 p-5 sm:p-8 lg:p-12 bg-gradient-to-br from-[var(--card)] to-[var(--bg)] border-t lg:border-t-0 lg:border-l border-[var(--border)]">
                   {/* idea form — ChatGPT-style */}
                   <div className="flex-1 flex flex-col">
                     <p className="text-lg font-semibold text-[var(--text)] mb-1">
@@ -270,7 +270,7 @@ export default function HomePage() {
           </Reveal>
 
           {/* ═══ 5.5 HIPAA / SECURITY ═══ */}
-          <Reveal className="col-span-1 md:col-span-12 lg:col-span-4">
+          <Reveal className="col-span-1 md:col-span-6 lg:col-span-4">
             <CardShell className="h-full">
               <div className="flex items-center gap-2 mb-4">
                 <Shield size={18} className="text-[var(--primary)]" />
@@ -320,7 +320,7 @@ export default function HomePage() {
 
           {/* ═══ 5.7 SERVICES ═══ */}
           {services.map(({ icon: Icon, title, desc }) => (
-            <Reveal key={title} className="col-span-1 md:col-span-6 lg:col-span-4">
+            <Reveal key={title} className="col-span-1 md:col-span-4">
               <CardShell className="h-full">
                 <Icon size={24} className="text-[var(--primary)] mb-3" />
                 <h2 className="text-[1.125rem] font-semibold text-[var(--text)] mb-2">{title}</h2>

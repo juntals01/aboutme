@@ -119,7 +119,7 @@ export default function BlogPostPage({
               </p>
             </div>
           </div>
-          <div className="mt-6 flex gap-3">
+          <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href="/build-mvp"
               className="inline-flex items-center rounded-[var(--radiusButton)] px-5 py-2.5 text-sm font-semibold text-white"

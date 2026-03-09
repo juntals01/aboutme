@@ -83,7 +83,7 @@ export default function BuildMVPPage() {
           <Button className="bg-portfolio-accent hover:bg-portfolio-accent-light text-white">Submit request</Button>
         </div>
 
-        {/* Board: table with budget */}
+        {/* Board */}
         <div className="rounded-xl border border-white/10 bg-white/5 overflow-hidden">
           <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-white">Request board</h2>
@@ -91,7 +91,9 @@ export default function BuildMVPPage() {
               <span>Planned · In Progress · Done</span>
             </div>
           </div>
-          <div className="overflow-x-auto">
+
+          {/* Desktop table */}
+          <div className="hidden sm:block overflow-x-auto">
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b border-white/10 text-slate-400 text-sm">
@@ -121,6 +123,26 @@ export default function BuildMVPPage() {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile cards */}
+          <div className="sm:hidden divide-y divide-white/5">
+            {MOCK_REQUESTS.map((req) => (
+              <div key={req.id} className="px-4 py-4 space-y-2">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="font-medium text-white text-sm">{req.title}</div>
+                  <span className={['shrink-0 inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium', statusColors[req.status]].join(' ')}>
+                    {req.status}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500">{req.description}</p>
+                <div className="flex items-center gap-4 text-xs text-slate-400">
+                  <span>{req.budget}</span>
+                  <span>{req.votes} votes</span>
+                  <span>{req.comments} comments</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
