@@ -149,6 +149,7 @@ const securityBullets = [
 ];
 
 const projects = [
+  { name: 'Philippine Legal AI', desc: 'AI-powered legal research and document analysis for Filipino lawyers.', tags: ['LLM', 'Next.js', 'LegalTech'], url: 'https://philippinelegalai.com/', image: '/portfolio/philippinelegalai.png' },
   { name: 'ExpirationReminderAI', desc: 'AI-powered contract & deadline tracking SaaS.', tags: ['Next.js', 'OpenAI', 'PostgreSQL'], url: 'https://expirationreminderai.com/', image: '/portfolio/expirationreminderai.png' },
   { name: 'PriceAlertly', desc: 'Competitor price monitoring SaaS.', tags: ['Next.js', 'NestJS', 'Redis'], url: 'https://pricealertly.com/', image: '/portfolio/pricealertly.png' },
   { name: 'CaseDigestMaker', desc: 'Legal AI research platform.', tags: ['Next.js', 'Claude API', 'TypeORM'], url: 'https://casedigestmaker.com/', image: '/portfolio/casedigestmaker.png' },
@@ -174,12 +175,12 @@ const processSteps = [
 ];
 
 const outcomes = [
+  { quote: 'AI-powered legal research reduced case digest time from hours to minutes.', label: 'Philippine Legal AI', role: 'Legal Tech' },
   { quote: 'Shipped MVP in 5 days — ready for beta users.', label: 'ExpirationReminderAI', role: 'SaaS Product' },
   { quote: 'Reduced manual work by 80% with AI automation.', label: 'Klicky MVP', role: 'WhatsApp Automation' },
   { quote: 'AI extracts contract deadlines in under 30 seconds — zero manual data entry.', label: 'ExpirationReminderAI', role: 'HIPAA-Compliant SaaS' },
   { quote: 'Multi-tenant architecture deployed in 2 weeks with full RBAC and SSE notifications.', label: 'Klicky MVP', role: 'Multi-tenant Platform' },
   { quote: 'Price monitoring across 200+ competitor products — fully automated alerts.', label: 'PriceAlertly', role: 'E-commerce SaaS' },
-  { quote: 'AI-powered legal research reduced case digest time from hours to minutes.', label: 'CaseDigestMaker', role: 'Legal AI Platform' },
 ];
 
 /* ──────────────────────────────── page ──────────────────────────────── */

@@ -26,6 +26,7 @@ const MOCK_REQUESTS: {
   { id: '4', title: 'Booking System for Coaches', description: 'Calendar, payments, and reminders.', status: 'Done', votes: 15, comments: 10, budget: '$999' },
   { id: '5', title: 'Expense Tracker with Receipt OCR', description: 'Snap receipts and categorize expenses.', status: 'Done', votes: 9, comments: 3, budget: '$999' },
   { id: '6', title: 'Multi-tenant Dashboard Template', description: 'Next.js + NestJS starter with RBAC.', status: 'Planned', votes: 6, comments: 1, budget: 'Custom' },
+  { id: '7', title: 'Philippine Legal AI', description: 'AI-powered legal research and document analysis for Filipino lawyers.', status: 'Done', votes: 42, comments: 18, budget: 'Custom' },
 ];
 
 const statusColors: Record<Status, string> = {
@@ -126,10 +127,18 @@ export default function BuildMVPPage() {
                 </tr>
               </thead>
               <tbody>
-                {MOCK_REQUESTS.map((req) => (
+                {[...MOCK_REQUESTS].reverse().map((req) => (
                   <tr key={req.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
                     <td className="px-4 py-3">
-                      <div className="font-medium text-white">{req.title}</div>
+                      <div className="font-medium text-white">
+                        {req.title === 'Philippine Legal AI' ? (
+                          <a href="https://philippinelegalai.com/" target="_blank" rel="noopener noreferrer" className="hover:text-portfolio-accent transition-colors underline decoration-portfolio-accent/30 underline-offset-4">
+                            {req.title}
+                          </a>
+                        ) : (
+                          req.title
+                        )}
+                      </div>
                       <div className="text-sm text-slate-500 truncate max-w-md">{req.description}</div>
                     </td>
                     <td className="px-4 py-3 text-slate-400">{req.budget}</td>
@@ -148,10 +157,18 @@ export default function BuildMVPPage() {
 
           {/* Mobile cards */}
           <div className="sm:hidden divide-y divide-white/5">
-            {MOCK_REQUESTS.map((req) => (
+            {[...MOCK_REQUESTS].reverse().map((req) => (
               <div key={req.id} className="px-4 py-4 space-y-2">
                 <div className="flex items-start justify-between gap-3">
-                  <div className="font-medium text-white text-sm">{req.title}</div>
+                  <div className="font-medium text-white text-sm">
+                    {req.title === 'Philippine Legal AI' ? (
+                      <a href="https://philippinelegalai.com/" target="_blank" rel="noopener noreferrer" className="hover:text-portfolio-accent transition-colors underline decoration-portfolio-accent/30 underline-offset-4">
+                        {req.title}
+                      </a>
+                    ) : (
+                      req.title
+                    )}
+                  </div>
                   <span className={['shrink-0 inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium', statusColors[req.status]].join(' ')}>
                     {req.status}
                   </span>
