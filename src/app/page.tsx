@@ -109,18 +109,20 @@ function OutcomeSlider() {
       </div>
 
       {/* dots */}
-      <div className="flex justify-center gap-1.5 mt-4">
+      <div className="flex justify-center gap-0.5 mt-4">
         {outcomes.map((_, i) => (
           <button
             key={i}
             onClick={() => setIdx(i)}
             aria-label={`Go to outcome ${i + 1}`}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
+            className="flex items-center justify-center p-2 cursor-pointer"
+          >
+            <span className={`block h-1.5 rounded-full transition-all duration-300 ${
               i === idx
                 ? 'w-6 bg-[var(--primary)]'
                 : 'w-1.5 bg-[var(--border)] hover:bg-[var(--textMuted)]'
-            }`}
-          />
+            }`} />
+          </button>
         ))}
       </div>
     </CardShell>
@@ -149,7 +151,7 @@ const securityBullets = [
 ];
 
 const projects = [
-  { name: 'Philippine Legal AI', desc: 'AI-powered legal research and document analysis for Filipino lawyers.', tags: ['LLM', 'Next.js', 'LegalTech'], url: 'https://philippinelegalai.com/', image: '/portfolio/philippinelegalai.png' },
+  { name: 'Philippine Legal AI', desc: 'AI-powered legal research platform for Filipino lawyers — reduces case digest time from hours to minutes using LLM-assisted document analysis, clause extraction, and jurisprudence search.', tags: ['LLM', 'Next.js', 'LegalTech', 'RAG'], url: 'https://philippinelegalai.com/', image: '/portfolio/philippinelegalai.png', featured: true },
   { name: 'ExpirationReminderAI', desc: 'AI-powered contract & deadline tracking SaaS.', tags: ['Next.js', 'OpenAI', 'PostgreSQL'], url: 'https://expirationreminderai.com/', image: '/portfolio/expirationreminderai.png' },
   { name: 'PriceAlertly', desc: 'Competitor price monitoring SaaS.', tags: ['Next.js', 'NestJS', 'Redis'], url: 'https://pricealertly.com/', image: '/portfolio/pricealertly.png' },
   { name: 'CaseDigestMaker', desc: 'Legal AI research platform.', tags: ['Next.js', 'Claude API', 'TypeORM'], url: 'https://casedigestmaker.com/', image: '/portfolio/casedigestmaker.png' },
@@ -210,6 +212,7 @@ export default function HomePage() {
                 <div className="flex flex-col justify-center gap-6 p-5 sm:p-8 lg:p-12 bg-[var(--card)]">
                   <span className="inline-flex w-fit items-center gap-2 rounded-[var(--radiusBadge)] border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-xs font-medium text-amber-400">
                     <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
                       <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-400" />
                     </span>
                     Currently Unavailable
@@ -261,9 +264,9 @@ export default function HomePage() {
                 <div className="flex flex-col gap-6 p-5 sm:p-8 lg:p-12 bg-gradient-to-br from-[var(--card)] to-[var(--bg)] border-t lg:border-t-0 lg:border-l border-[var(--border)]">
                   {/* idea form — ChatGPT-style */}
                   <div className="flex-1 flex flex-col">
-                    <p className="text-lg font-semibold text-[var(--text)] mb-1">
+                    <label htmlFor="idea-input" className="text-lg font-semibold text-[var(--text)] mb-1">
                       What will you build?
-                    </p>
+                    </label>
                     <p className="text-sm text-[var(--textMuted)] mb-4">
                       Describe your idea — I&apos;ll reply with a plan.
                     </p>
@@ -273,6 +276,7 @@ export default function HomePage() {
                         style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.04)' }}
                       >
                         <textarea
+                          id="idea-input"
                           value={idea}
                           onChange={(e) => setIdea(e.target.value)}
                           placeholder="A CRM for freelancers with invoicing, Stripe billing, and a client portal..."
@@ -291,7 +295,7 @@ export default function HomePage() {
                           </span>
                           <button
                             type="submit"
-                            className="flex items-center gap-1.5 rounded-xl px-5 py-2 text-sm font-semibold text-white transition-all hover:scale-[1.03] active:scale-[0.97]"
+                            className="flex items-center gap-1.5 rounded-xl px-5 py-2 text-sm font-semibold text-white transition-all hover:scale-[1.03] active:scale-[0.97] cursor-pointer"
                             style={{
                               background: 'linear-gradient(135deg, var(--primary), var(--primarySoft))',
                               boxShadow: '0 0 20px rgba(139,92,246,0.35)',
@@ -395,13 +399,66 @@ export default function HomePage() {
                 <h2 className="text-[1.125rem] font-semibold text-[var(--text)]">Products & MVPs</h2>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[var(--gap)]">
-                {projects.map(({ name, desc, tags, url, image }) => (
-                  <a
+                {projects.map(({ name, desc, tags, url, image, featured }, i) => featured ? (
+                  <motion.a
+                    key={name}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group sm:col-span-2 lg:col-span-2 rounded-[var(--radiusCard)] border border-[var(--primary)]/25 bg-[var(--bg)] overflow-hidden transition hover:-translate-y-1 hover:border-[var(--primary)]/50 hover:shadow-[0_0_28px_rgba(139,92,246,0.2)]"
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="flex flex-col sm:flex-row h-full">
+                      <div className="relative sm:w-1/2 aspect-[16/10] sm:aspect-auto overflow-hidden bg-[var(--card)]">
+                        <Image
+                          src={image}
+                          alt={`${name} — ${desc}`}
+                          fill
+                          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                          sizes="(max-width: 640px) 100vw, 33vw"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-transparent to-transparent opacity-40" />
+                      </div>
+                      <div className="p-5 flex flex-col justify-between sm:w-1/2">
+                        <div>
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="rounded-[var(--radiusBadge)] bg-[var(--primary)]/15 border border-[var(--primary)]/30 px-2.5 py-0.5 text-[0.65rem] font-semibold text-[var(--primary)] uppercase tracking-wide">
+                              Featured
+                            </span>
+                          </div>
+                          <h3 className="font-semibold text-[var(--text)] text-base mb-2 flex items-center gap-1.5">
+                            {name}
+                            <ExternalLink size={12} className="text-[var(--primary)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </h3>
+                          <p className="text-xs text-[var(--textMuted)] mb-4 leading-relaxed">{desc}</p>
+                        </div>
+                        <div className="flex flex-wrap gap-1">
+                          {tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="rounded-[var(--radiusBadge)] bg-[var(--primary)]/10 border border-[var(--primary)]/20 px-2 py-0.5 text-[0.65rem] text-[var(--primary)]"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.a>
+                ) : (
+                  <motion.a
                     key={name}
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group rounded-[var(--radiusCard)] border border-[var(--border)] bg-[var(--bg)] overflow-hidden transition hover:-translate-y-1 hover:border-[var(--primary)]/40 hover:shadow-[0_0_20px_rgba(139,92,246,0.15)]"
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: i * 0.04 }}
                   >
                     <div className="relative w-full aspect-[16/10] overflow-hidden bg-[var(--card)]">
                       <Image
@@ -432,7 +489,7 @@ export default function HomePage() {
                         ))}
                       </div>
                     </div>
-                  </a>
+                  </motion.a>
                 ))}
               </div>
             </CardShell>
@@ -453,13 +510,20 @@ export default function HomePage() {
           <Reveal className="col-span-1 md:col-span-6">
             <CardShell className="h-full">
               <h2 className="text-[1.125rem] font-semibold text-[var(--text)] mb-4">Workflow Highlights</h2>
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-0">
                 {processSteps.map((step, i) => (
-                  <div key={step} className="flex items-center gap-3">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--primary)]/20 text-xs font-bold text-[var(--primary)]">
-                      {i + 1}
-                    </span>
-                    <span className="text-sm text-[var(--textSecondary)]">{step}</span>
+                  <div key={step} className="flex gap-3">
+                    <div className="flex flex-col items-center">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--primary)]/20 text-xs font-bold text-[var(--primary)]">
+                        {i + 1}
+                      </span>
+                      {i < processSteps.length - 1 && (
+                        <div className="w-px flex-1 my-1 bg-[var(--primary)]/15" />
+                      )}
+                    </div>
+                    <div className={i < processSteps.length - 1 ? 'pb-4' : ''}>
+                      <span className="text-sm text-[var(--textSecondary)] leading-7">{step}</span>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -504,8 +568,18 @@ export default function HomePage() {
       {/* Not Available Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowModal(false)} />
-          <div className="relative w-full max-w-md rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6 shadow-2xl">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => setShowModal(false)}
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 8 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="relative w-full max-w-md rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6 shadow-2xl"
+          >
             <button
               onClick={() => setShowModal(false)}
               className="absolute top-4 right-4 text-[var(--textMuted)] hover:text-[var(--text)] transition"
@@ -537,7 +611,7 @@ export default function HomePage() {
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       )}
     </div>
