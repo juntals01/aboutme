@@ -160,6 +160,7 @@ const projects = [
   { name: 'CasinoFiles', desc: 'Top 100 slots charts & casino analytics.', tags: ['Next.js', 'PostgreSQL', 'Analytics'], url: 'https://casinofiles.com/', image: '/portfolio/casinofiles.png' },
   { name: 'Kuxinero', desc: 'Rooftop restaurant website in Cebu, Philippines.', tags: ['Next.js', 'Tailwind', 'SEO'], url: 'https://kuxinero.com/', image: '/portfolio/kuxinero.png' },
   { name: 'Bilal Dannoun', desc: 'Marriage celebrant platform in Sydney, Australia.', tags: ['Next.js', 'Booking', 'SEO'], url: 'https://www.bilaldannoun.com/', image: '/portfolio/bilaldannoun.png' },
+  { name: 'XRAYAI', desc: 'Website audit tool — scans site health and AI search visibility, surfacing revenue-costing issues in under 60 seconds.', tags: ['Next.js', 'AI', 'SEO Audit'], url: 'http://xrayai.online/', image: '/portfolio/xrayai.png' },
 ];
 
 const services = [
